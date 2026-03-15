@@ -105,8 +105,8 @@ body {
   backdrop-filter: blur(20px);
   -webkit-backdrop-filter: blur(20px);
   border-top: 1px solid var(--border-subtle);
-  min-height: var(--tab-bar-height);
   padding-bottom: env(safe-area-inset-bottom);
+  min-height: calc(var(--tab-bar-height) + env(safe-area-inset-bottom));
   z-index: 100;
 }
 
