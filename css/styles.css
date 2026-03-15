@@ -61,7 +61,6 @@ body {
   overflow: hidden;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  padding-top: env(safe-area-inset-top);
 }
 
 #app {
@@ -106,7 +105,7 @@ body {
   backdrop-filter: blur(20px);
   -webkit-backdrop-filter: blur(20px);
   border-top: 1px solid var(--border-subtle);
-  height: var(--tab-bar-height);
+  min-height: var(--tab-bar-height);
   padding-bottom: env(safe-area-inset-bottom);
   z-index: 100;
 }
@@ -155,7 +154,7 @@ body {
   font-weight: 700;
   text-align: center;
   margin-bottom: 32px;
-  margin-top: 48px;
+  margin-top: 24px;
 }
 
 /* Back button */
