@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#0F0E17">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="Tonight">
+  <meta name="description" content="Beat decision fatigue — let Tonight pick your evening activity">
+  <link rel="apple-touch-icon" href="apple-touch-icon.png">
+  <link rel="manifest" href="manifest.json">
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
+  <title>Tonight</title>
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+  <div id="app">
+    <!-- ===== TONIGHT TAB ===== -->
+    <section id="tab-tonight" class="tab-content active">
+      <!-- Step 1: Mood Selection -->
+      <div id="tonight-mood" class="tonight-step active">
+        <h1 class="tonight-heading">How are you feeling?</h1>
+        <div class="mood-grid">
+          <button class="mood-card" data-mood="exhausted">
+            <span class="mood-emoji">😴</span>
+            <span class="mood-label">Exhausted</span>
+          </button>
+          <button class="mood-card" data-mood="relaxed">
+            <span class="mood-emoji">😌</span>
+            <span class="mood-label">Relaxed</span>
+          </button>
+          <button class="mood-card" data-mood="upbeat">
+            <span class="mood-emoji">🔥</span>
+            <span class="mood-label">Upbeat</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- Step 2: Category Selection -->
+      <div id="tonight-category" class="tonight-step">
+        <button class="back-btn" id="back-to-mood" aria-label="Go back">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg>
+        </button>
+        <h1 class="tonight-heading">What do you want to do?</h1>
+        <div class="category-grid">
+          <button class="category-card" data-category="game">
+            <span class="category-icon">🎮</span>
+            <span class="category-label">Game</span>
+          </button>
+          <button class="category-card" data-category="book">
+            <span class="category-icon">📖</span>
+            <span class="category-label">Book</span>
+          </button>
+          <button class="category-card" data-category="watch">
+            <span class="category-icon">🍿</span>
+            <span class="category-label">Watch</span>
+          </button>
+          <button class="category-card surprise" data-category="any">
+            <span class="category-icon">✨</span>
+            <span class="category-label">Surprise Me</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- Step 3: Result -->
+      <div id="tonight-result" class="tonight-step">
+        <button class="back-btn" id="back-to-category" aria-label="Go back">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg>
+        </button>
+        <h1 class="tonight-heading">Tonight, you should...</h1>
+        <div class="result-card">
+          <div class="result-cover">
+            <img id="result-cover-img" src="" alt="">
+          </div>
+          <h2 class="result-title" id="result-title"></h2>
+          <div class="result-meta">
+            <span class="result-type" id="result-type"></span>
+            <span class="result-energy" id="result-energy"></span>
+          </div>
+        </div>
+        <div class="result-actions">
+          <button class="btn btn-secondary" id="pick-again">Pick Again</button>
+          <button class="btn btn-primary" id="lets-go">Let's Go!</button>
+        </div>
+        <!-- Empty state -->
+        <div class="result-empty" id="result-empty" hidden>
+          <p class="empty-emoji">🤷</p>
+          <p class="empty-text" id="empty-text">Nothing matches that vibe yet.</p>
+          <button class="btn btn-primary" id="empty-go-library">Add to Library</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== LIBRARY TAB ===== -->
+    <section id="tab-library" class="tab-content">
+      <div class="library-header">
+        <h1 class="library-title">Library</h1>
+        <div class="library-header-actions">
+          <button class="icon-btn" id="settings-btn" aria-label="Settings">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 00.33 1.82l.06.06a2 2 0 010 2.83 2 2 0 01-2.83 0l-.06-.06a1.65 1.65 0 00-1.82-.33 1.65 1.65 0 00-1 1.51V21a2 2 0 01-2 2 2 2 0 01-2-2v-.09A1.65 1.65 0 009 19.4a1.65 1.65 0 00-1.82.33l-.06.06a2 2 0 01-2.83 0 2 2 0 010-2.83l.06-.06A1.65 1.65 0 004.68 15a1.65 1.65 0 00-1.51-1H3a2 2 0 01-2-2 2 2 0 012-2h.09A1.65 1.65 0 004.6 9a1.65 1.65 0 00-.33-1.82l-.06-.06a2 2 0 010-2.83 2 2 0 012.83 0l.06.06A1.65 1.65 0 009 4.68a1.65 1.65 0 001-1.51V3a2 2 0 012-2 2 2 0 012 2v.09a1.65 1.65 0 001 1.51 1.65 1.65 0 001.82-.33l.06-.06a2 2 0 012.83 0 2 2 0 010 2.83l-.06.06A1.65 1.65 0 0019.32 9a1.65 1.65 0 001.51 1H21a2 2 0 012 2 2 2 0 01-2 2h-.09a1.65 1.65 0 00-1.51 1z"/></svg>
+          </button>
+          <button class="icon-btn add-btn" id="add-item-btn" aria-label="Add item">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+          </button>
+        </div>
+      </div>
+      <div class="filter-pills">
+        <button class="pill active" data-filter="all">All</button>
+        <button class="pill" data-filter="game">Games</button>
+        <button class="pill" data-filter="book">Books</button>
+        <button class="pill" data-filter="watch">Watch</button>
+      </div>
+      <div class="library-grid" id="library-grid">
+        <!-- Cards rendered by JS -->
+      </div>
+      <div class="library-empty" id="library-empty" hidden>
+        <p class="empty-emoji">📚</p>
+        <p class="empty-text">Your library is empty!</p>
+        <p class="empty-subtext">Add some games, books, or shows to get started.</p>
+        <button class="btn btn-primary" id="empty-add-btn">Add Your First Item</button>
+      </div>
+    </section>
+
+    <!-- ===== ADD/EDIT MODAL ===== -->
+    <div class="modal-overlay" id="modal-overlay" hidden>
+      <div class="modal" id="item-modal">
+        <div class="modal-header">
+          <h2 class="modal-title" id="modal-title">Add to Library</h2>
+          <button class="icon-btn" id="modal-close" aria-label="Close">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+          </button>
+        </div>
+        <div class="modal-body">
+          <label class="field-label">Type</label>
+          <div class="type-pills">
+            <button class="pill" data-type="game">Game</button>
+            <button class="pill" data-type="book">Book</button>
+            <button class="pill" data-type="watch">Watch</button>
+          </div>
+
+          <label class="field-label" for="item-title">Title</label>
+          <input type="text" id="item-title" class="text-input" placeholder="Search or type a title..." autocomplete="off">
+
+          <div class="cover-preview" id="cover-preview" hidden>
+            <img id="cover-preview-img" src="" alt="Cover art preview">
+          </div>
+
+          <label class="field-label">Energy Level</label>
+          <div class="energy-pills">
+            <button class="pill energy-chill" data-energy="chill">Chill</button>
+            <button class="pill energy-moderate" data-energy="moderate">Moderate</button>
+            <button class="pill energy-intense" data-energy="intense">Intense</button>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button class="btn btn-danger" id="modal-delete" hidden>Delete</button>
+          <button class="btn btn-primary" id="modal-save">Add to Library</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- ===== SETTINGS MODAL ===== -->
+    <div class="modal-overlay" id="settings-overlay" hidden>
+      <div class="modal" id="settings-modal">
+        <div class="modal-header">
+          <h2 class="modal-title">Settings</h2>
+          <button class="icon-btn" id="settings-close" aria-label="Close">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+          </button>
+        </div>
+        <div class="modal-body">
+          <p class="settings-desc">Add free API keys to get cover art for games and movies/shows. Books get covers automatically.</p>
+
+          <label class="field-label" for="rawg-key">RAWG API Key (Games)</label>
+          <input type="text" id="rawg-key" class="text-input" placeholder="Paste your key...">
+          <a class="api-link" href="https://rawg.io/apidocs" target="_blank" rel="noopener">Get a free key at rawg.io</a>
+
+          <label class="field-label" for="tmdb-key">TMDB API Key (Movies/Shows)</label>
+          <input type="text" id="tmdb-key" class="text-input" placeholder="Paste your key...">
+          <a class="api-link" href="https://www.themoviedb.org/settings/api" target="_blank" rel="noopener">Get a free key at themoviedb.org</a>
+
+          <div class="settings-divider"></div>
+
+          <label class="field-label">Data</label>
+          <div class="settings-data-btns">
+            <button class="btn btn-secondary" id="export-btn">Export Backup</button>
+            <button class="btn btn-secondary" id="import-btn">Import Backup</button>
+            <input type="file" id="import-file" accept=".json" hidden>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button class="btn btn-primary" id="settings-save">Save</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- ===== CONFIRM DIALOG ===== -->
+    <div class="modal-overlay" id="confirm-overlay" hidden>
+      <div class="modal modal-confirm">
+        <p class="confirm-text" id="confirm-text"></p>
+        <div class="confirm-actions">
+          <button class="btn btn-secondary" id="confirm-cancel">Cancel</button>
+          <button class="btn btn-danger" id="confirm-ok">Delete</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- ===== TOAST ===== -->
+    <div class="toast" id="toast" hidden></div>
+
+    <!-- ===== BOTTOM TAB BAR ===== -->
+    <nav class="tab-bar">
+      <button class="tab-btn active" data-tab="tonight">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1111.21 3a7 7 0 009.79 9.79z"/></svg>
+        <span>Tonight</span>
+      </button>
+      <button class="tab-btn" data-tab="library">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 016.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 014 19.5v-15A2.5 2.5 0 016.5 2z"/></svg>
+        <span>Library</span>
+      </button>
+    </nav>
+  </div>
+
+  <script type="module" src="js/app.js"></script>
+</body>
+</html>
