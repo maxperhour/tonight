@@ -12,6 +12,13 @@
   <link rel="manifest" href="manifest.json">
   <link rel="icon" href="favicon.svg" type="image/svg+xml">
   <title>Tonight</title>
+  <script>
+    // Detect standalone (home screen) mode before first paint
+    if (window.navigator.standalone === true ||
+        window.matchMedia('(display-mode: standalone)').matches) {
+      document.documentElement.classList.add('standalone');
+    }
+  </script>
   <link rel="stylesheet" href="css/styles.css">
 </head>
 <body>

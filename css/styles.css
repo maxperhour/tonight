@@ -822,3 +822,40 @@ body {
   font-size: 3rem;
   color: var(--text-tertiary);
 }
+
+/* ===== PWA STANDALONE MODE FIX (iOS 26+) ===== */
+/*
+ * When launched from the home screen, iOS can misreport
+ * env(safe-area-inset-bottom) as 0 and 100dvh may not match
+ * the real viewport. We pin the tab bar to the true bottom
+ * with a 34px minimum (home-indicator height) and use a
+ * JS-calculated --app-height as the authoritative height.
+ */
+html.standalone #app {
+  height: var(--app-height, 100dvh);
+}
+
+html.standalone .tab-bar {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding-bottom: max(env(safe-area-inset-bottom, 0px), 34px);
+  min-height: calc(var(--tab-bar-height) + max(env(safe-area-inset-bottom, 0px), 34px));
+}
+
+html.standalone .tab-content {
+  padding-bottom: calc(var(--tab-bar-height) + max(env(safe-area-inset-bottom, 0px), 34px) + 24px);
+}
+
+html.standalone #tab-tonight.active {
+  padding-bottom: calc(var(--tab-bar-height) + max(env(safe-area-inset-bottom, 0px), 34px) + 24px);
+}
+
+html.standalone .toast {
+  bottom: calc(var(--tab-bar-height) + max(env(safe-area-inset-bottom, 0px), 34px) + 16px);
+}
+
+html.standalone .modal {
+  padding-bottom: max(env(safe-area-inset-bottom, 0px), 34px);
+}

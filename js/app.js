@@ -5,6 +5,21 @@ import { initLibrary, renderLibrary } from './library.js';
 import { initTonight } from './tonight.js';
 import { initConfirmDialog, openModal, closeModal, showToast } from './ui.js';
 
+// === PWA standalone viewport fix (iOS 26+) ===
+// Sets --app-height to the true viewport height so the flex layout
+// works even when 100dvh lies in home-screen mode.
+if (document.documentElement.classList.contains('standalone')) {
+  const setAppHeight = () => {
+    const h = window.visualViewport ? window.visualViewport.height : window.innerHeight;
+    document.documentElement.style.setProperty('--app-height', h + 'px');
+  };
+  setAppHeight();
+  window.addEventListener('resize', setAppHeight);
+  if (window.visualViewport) {
+    window.visualViewport.addEventListener('resize', setAppHeight);
+  }
+}
+
 // === Tab switching ===
 function initTabs() {
   document.querySelectorAll('.tab-btn').forEach(btn => {
