@@ -1,6 +1,6 @@
 // sw.js — Service worker for offline caching
 
-const CACHE_NAME = 'tonight-v1';
+const CACHE_NAME = 'tonight-v3';
 const APP_SHELL = [
   './',
   './index.html',

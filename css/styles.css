@@ -74,10 +74,10 @@ body {
 .tab-content {
   display: none;
   flex: 1;
+  min-height: 0;
   overflow-y: auto;
   overflow-x: hidden;
-  padding: 24px 20px;
-  padding-bottom: calc(var(--tab-bar-height) + env(safe-area-inset-bottom) + 24px);
+  padding: 24px 20px 24px;
   -webkit-overflow-scrolling: touch;
 }
 
@@ -96,11 +96,8 @@ body {
 
 /* ===== BOTTOM TAB BAR ===== */
 .tab-bar {
-  position: fixed;
-  bottom: 0;
-  left: 0;
-  right: 0;
   display: flex;
+  flex-shrink: 0;
   background: #16152280;
   backdrop-filter: blur(20px);
   -webkit-backdrop-filter: blur(20px);
